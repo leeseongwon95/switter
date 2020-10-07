@@ -1,10 +1,16 @@
+import { dbService } from "fbase";
 import React from "react";
 import { useState } from "react";
 
 const Home = () => {
   const [sweet, setSweet] = useState("");
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
+    await dbService.collection("sweets").add({
+      sweet,
+      createdAt: Date.now(),
+    });
+    setSweet("");
   };
   const onChange = (event) => {
     const {
