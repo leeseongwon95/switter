@@ -1,3 +1,3 @@
-### Switter
+# Switter
 
-# twitter clone with React and Firebase
+### twitter clone with React and Firebase
