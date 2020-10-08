@@ -8,6 +8,7 @@ const Home = ({ userObj }) => {
   // Home 의 props 는 router에 의해서 받음
   const [sweet, setSweet] = useState("");
   const [sweets, setSweets] = useState([]);
+  const [attachment, setAttachment] = useState();
   useEffect(() => {
     dbService.collection("sweets").onSnapshot((snapshot) => {
       // onSnapshot 데이터베이스에 무슨 일이 있으면 알림을 받음
@@ -38,13 +39,18 @@ const Home = ({ userObj }) => {
     const {
       target: { files },
     } = event;
-    const theFile = files[0];
+    const theFile = files[0]; // input 하나의 파일만 받기 때문에 모든 파일 중에 첫번째 파일만 받게 함
     const reader = new FileReader();
     reader.onloadend = (finishedEvent) => {
-      console.log(finishedEvent);
+      // 파일 읽는 것이 끝나면 이벤트를 갖게 됨
+      const {
+        currentTarget: { result },
+      } = finishedEvent;
+      setAttachment(result);
     };
     reader.readAsDataURL(theFile);
   };
+  const onClearAttachment = () => setAttachment(null);
   return (
     <div>
       <form onSubmit={onSubmit}>
@@ -57,6 +63,12 @@ const Home = ({ userObj }) => {
         />
         <input type="file" accept="image/*" onChange={onFileChange} />
         <input type="submit" value="Sweet" />
+        {attachment && (
+          <div>
+            <img src={attachment} width="50px" height="50px" />
+            <button onClick={onClearAttachment}>Cancel upload</button>
+          </div>
+        )}
       </form>
       <div>
         {sweets.map((
