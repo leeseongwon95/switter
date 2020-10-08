@@ -3,7 +3,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 
-const Home = () => {
+const Home = ({ userObj }) => {
   const [sweet, setSweet] = useState("");
   const [sweets, setSweets] = useState([]);
   const getSweets = async () => {
@@ -18,12 +18,20 @@ const Home = () => {
   };
   useEffect(() => {
     getSweets();
+    dbService.collection("sweets").onSnapshot((snapshot) => {
+      const sweetArray = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setSweets(sweetArray);
+    });
   }, []);
   const onSubmit = async (event) => {
     event.preventDefault();
     await dbService.collection("sweets").add({
-      sweet,
+      text: sweet,
       createdAt: Date.now(),
+      creatorId: userObj.uid,
     });
     setSweet("");
   };
@@ -47,7 +55,9 @@ const Home = () => {
       </form>
       <div>
         {sweets.map((sweet) => (
-          <div key={sweet.id}>{sweet.sweet}</div>
+          <div key={sweet.id}>
+            <h4>{sweet.text}</h4>
+          </div>
         ))}
       </div>
     </div>
