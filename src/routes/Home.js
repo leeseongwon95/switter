@@ -1,24 +1,13 @@
-import Sweet from "components/Sweet";
-import { dbService } from "fbase";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+import { dbService } from "fbase";
+import Sweet from "components/Sweet";
 
 const Home = ({ userObj }) => {
   const [sweet, setSweet] = useState("");
   const [sweets, setSweets] = useState([]);
-  const getSweets = async () => {
-    const dbSweets = await dbService.collection("sweets").get();
-    dbSweets.forEach((document) => {
-      const sweetObject = {
-        ...document.data(),
-        id: document.id,
-      };
-      setSweets((prev) => [sweetObject, ...prev]);
-    });
-  };
   useEffect(() => {
-    getSweets();
     dbService.collection("sweets").onSnapshot((snapshot) => {
       const sweetArray = snapshot.docs.map((doc) => ({
         id: doc.id,
