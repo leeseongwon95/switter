@@ -6,6 +6,7 @@ import Profile from "routes/Profile";
 import Navigation from "components/Navigation";
 
 const AppRouter = ({ isLoggedIn, userObj }) => {
+  // router는 app.js 에 의해서 같은 userObj prop 를 받음
   return (
     <Router>
       {isLoggedIn && <Navigation />}

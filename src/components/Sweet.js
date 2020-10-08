@@ -6,9 +6,9 @@ const Sweet = ({ sweetObj, isOwner }) => {
   const [editing, setEditing] = useState(false);
   const [newSweet, setNewSweet] = useState(sweetObj.text);
   const onDeleteClick = async () => {
-    const ok = window.confirm("Are you sure you want to delete this sweet?");
+    const ok = window.confirm("Are you sure you want to delete this sweet?"); // ok를 클릭하면 true 가 되고
     if (ok) {
-      await dbService.doc(`sweets/${sweetObj.id}`).delete();
+      await dbService.doc(`sweets/${sweetObj.id}`).delete(); // ok 가 true 면 dbService doc 실행
     }
   };
 
@@ -45,7 +45,7 @@ const Sweet = ({ sweetObj, isOwner }) => {
       ) : (
         <>
           <h4>{sweetObj.text}</h4>
-          {isOwner && (
+          {isOwner && ( // 작성자만 버튼을 볼 수 있음
             <>
               <button onClick={onDeleteClick}>Delete Sweet</button>
               <button onClick={toggleEditing}>Edit Sweet</button>
