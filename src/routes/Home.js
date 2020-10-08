@@ -1,3 +1,4 @@
+import Sweet from "components/Sweet";
 import { dbService } from "fbase";
 import React from "react";
 import { useEffect } from "react";
@@ -55,9 +56,11 @@ const Home = ({ userObj }) => {
       </form>
       <div>
         {sweets.map((sweet) => (
-          <div key={sweet.id}>
-            <h4>{sweet.text}</h4>
-          </div>
+          <Sweet
+            key={sweet.id}
+            sweetObj={sweet}
+            isOwner={sweet.creatorId === userObj.uid}
+          />
         ))}
       </div>
     </div>
