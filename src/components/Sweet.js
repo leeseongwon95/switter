@@ -45,6 +45,9 @@ const Sweet = ({ sweetObj, isOwner }) => {
       ) : (
         <>
           <h4>{sweetObj.text}</h4>
+          {sweetObj.attachmentUrl && (
+            <img src={sweetObj.attachmentUrl} width="50px" height="50px" />
+          )}
           {isOwner && ( // 작성자만 버튼을 볼 수 있음
             <>
               <button onClick={onDeleteClick}>Delete Sweet</button>
