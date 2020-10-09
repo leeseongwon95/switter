@@ -7,7 +7,7 @@ const Home = ({ userObj }) => {
   // Home 의 props 는 router에 의해서 받음
   const [sweet, setSweet] = useState("");
   const [sweets, setSweets] = useState([]);
-  const [attachment, setAttachment] = useState();
+  const [attachment, setAttachment] = useState("");
   useEffect(() => {
     dbService.collection("sweets").onSnapshot((snapshot) => {
       // onSnapshot 데이터베이스에 무슨 일이 있으면 알림을 받음
