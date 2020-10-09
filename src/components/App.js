@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AppRouter from "components/Router";
 import { authService } from "fbase";
-import { useEffect } from "react";
 
 function App() {
   const [init, setInit] = useState(false);
@@ -17,6 +16,8 @@ function App() {
           uid: user.uid,
           updateProfile: (args) => user.updateProfile(args), // 이 function은 원하는 function 을 얻기 위한 중간 function이다
         });
+      } else {
+        setUserObj(null);
       }
       setInit(true);
     });
