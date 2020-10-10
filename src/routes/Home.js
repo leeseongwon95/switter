@@ -7,21 +7,24 @@ const Home = ({ userObj }) => {
   // Home 의 props 는 router에 의해서 받음
   const [sweets, setSweets] = useState([]);
   useEffect(() => {
-    dbService.collection("sweets").onSnapshot((snapshot) => {
-      // onSnapshot 데이터베이스에 무슨 일이 있으면 알림을 받음
-      const sweetArray = snapshot.docs.map((doc) => ({
-        // 새로운 스냅샷을 만들 때 배열을 만들고
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setSweets(sweetArray); // 그런다음 state에 배열을 집어넣는다
-    });
+    dbService
+      .collection("sweets")
+      .orderBy("createdAt", "desc") // 생성 순서대로 sweet 나오게 함
+      .onSnapshot((snapshot) => {
+        // onSnapshot 데이터베이스에 무슨 일이 있으면 알림을 받음
+        const sweetArray = snapshot.docs.map((doc) => ({
+          // 새로운 스냅샷을 만들 때 배열을 만들고
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setSweets(sweetArray); // 그런다음 state에 배열을 집어넣는다
+      });
   }, []);
 
   return (
-    <div>
+    <div className="container">
       <SweetFactory userObj={userObj} />
-      <div>
+      <div style={{ marginTop: 30 }}>
         {sweets.map((sweet) => (
           // map 을 만들고 Sweet component를 만든다
           <Sweet // sweet component는 두 개의 prop sweetObj, isOwner 를 가진다
