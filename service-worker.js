@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/switter/precache-manifest.bebc94994e1a3f93fbf178d57b0e6707.js"
+  "/switter/precache-manifest.d5a2c2fca0b781c719148dab136b3559.js"
 );
 
 self.addEventListener('message', (event) => {

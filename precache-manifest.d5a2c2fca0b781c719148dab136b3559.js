@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2e11de58cd624fd6e82ceb4e7b40575e",
+    "revision": "6fbcef538ecaa2642938345da3fb5272",
     "url": "/switter/index.html"
   },
   {
